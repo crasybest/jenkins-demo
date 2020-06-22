@@ -14,13 +14,13 @@ node('haimaxy-jnlp') {
     }
     stage('Build') {
         echo "3.Build Docker Image Stage"
-        sh "docker build -t cnych/jenkins-demo:${build_tag} ."
+        sh "docker build -t wn1.daling.local/daling/jenkins-demo:${build_tag} ."
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
-        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-            sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
-            sh "docker push cnych/jenkins-demo:${build_tag}"
+        withCredentials([usernamePassword(credentialsId: 'harbor', passwordVariable: 'harborPassword', usernameVariable: 'harborUser')]) {
+            sh "docker login -u ${harborUser} -p ${harborPassword} wn1.daling.local"
+            sh "docker push wn1.daling.local/daling/jenkins-demo:${build_tag}"
         }
     }
     stage('Deploy') {
