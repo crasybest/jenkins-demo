@@ -19,7 +19,7 @@ node('haimaxy-jnlp') {
     stage('Push') {
         echo "4.Push Docker Image Stage"
         withCredentials([usernamePassword(credentialsId: 'harbor', passwordVariable: 'harborPassword', usernameVariable: 'harborUser')]) {
-            sh "docker login -u ${harborUser} -p ${harborPassword}"
+            sh "docker login -u ${harborUser} -p ${harborPassword} http://wn1.daling.local"
             sh "docker push wn1.daling.local/daling/jenkins-demo:${build_tag}"
         }
     }
